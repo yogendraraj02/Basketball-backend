@@ -7,6 +7,7 @@ const createResponse = require("../responses/response");
 
 const register = async (request, response) => {
   try {
+    console.log(`req body`,request.body);
     const userData = await registerValidator.validate(request.body, {
       abortEarly: false,
     });
