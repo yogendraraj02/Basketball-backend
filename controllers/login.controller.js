@@ -1,4 +1,3 @@
-const { ValidationError } = require("sequelize");
 const formErrorsResponse = require("../responses/formerrors.response");
 const { loginValidator } = require("../validators/user.validators");
 const { UserModel } = require("../models/init");
@@ -7,6 +6,7 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const createResponse = require("../responses/response");
 const fs = require("fs");
+const {ValidationError} = require("yup");
 const login = async (request,response) => {
     try{
         const {email,password} = await loginValidator.validate(request.body,{abortEarly : false});
@@ -33,13 +33,13 @@ const login = async (request,response) => {
         });
     
         response.json(createResponse("jwt_token", "login", { token }));
-    } catch(e){
-        if(e instanceof ValidationError){
-            response.status(400).json(formErrorsResponse(e));
-            return;
+        } catch(e){
+            if(e instanceof ValidationError){
+                response.status(400).json(formErrorsResponse(e));
+                return;
+            }
+            throw e;
         }
-        throw e;
-    }
 }
 
 module.exports = {login}
