@@ -57,7 +57,9 @@ module.exports = {
         },
         updatedAt: {
           type: DataTypes.DATE,
-        }
+        },
+        
+           
   });
      
   },
