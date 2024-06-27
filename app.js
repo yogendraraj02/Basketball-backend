@@ -12,9 +12,9 @@ const { sequelize } = require("./models/init");
 var cors = require("cors");
 app.use(cors());
 app.use(express.json());
-app.use(authenticationMiddleware)
 app.use(express.urlencoded({extended :true}))
 app.use('/users',userRoutes);
+app.use(authenticationMiddleware)
 app.use('/login',loginRoutes)
 app.use('/game', authorizationMiddleware, gameRoutes)
 app.get('/' , (req, res) => {
